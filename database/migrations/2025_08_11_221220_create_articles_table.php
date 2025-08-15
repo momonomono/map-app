@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id')->comment('ユーザー名');
+            $table->integer('like_count')->comment('いいね数');
+            $table->integer('view_count')->comment('閲覧数');
+            $table->string('title')->comment('タイトル');
+            $table->text('map_link')->comment('googleマップのリンク');
+            $table->text('detail')->comment('投稿の詳細');
             $table->timestamps();
         });
     }

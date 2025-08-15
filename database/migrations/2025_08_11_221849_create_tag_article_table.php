@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('tag_article', function (Blueprint $table) {
             $table->id();
+            $table->integer('tag_id')->comment('タグID');
+            $table->integer('article_id')->comment('記事ID');
             $table->timestamps();
         });
     }
