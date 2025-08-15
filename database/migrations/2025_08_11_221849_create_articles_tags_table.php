@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tag_article', function (Blueprint $table) {
+        Schema::create('articles_tags', function (Blueprint $table) {
             $table->id();
             $table->integer('tag_id')->comment('タグID');
             $table->integer('article_id')->comment('記事ID');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tag_article');
+        Schema::dropIfExists('articles_tags');
     }
 };
