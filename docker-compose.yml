@@ -1,11 +1,11 @@
 services:
     laravel.test:
         build:
-            context: './vendor/laravel/sail/runtimes/8.4'
+            context: ./vendor/laravel/sail/runtimes/8.4
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
-        image: 'sail-8.4/app'
+        image: sail-8.4/app
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
@@ -89,9 +89,9 @@ services:
         image: phpmyadmin/phpmyadmin
         platform: linux/amd64
         links:
-            - mysql:mysql
-        ports: 
-            - 8080:8080
+            - 'mysql:mysql'
+        ports:
+            - '8080:8080'
         environment:
             MYSQL_USERNAME: '${DB_USERNAME}'
             MYSQL_ROOT_PASSOWRD: '${DB_PASSWORD}'
