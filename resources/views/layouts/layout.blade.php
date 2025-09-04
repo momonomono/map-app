@@ -14,8 +14,8 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+    <body>
+        <div>
             
             <!-- Page Heading -->
             @isset($header)
@@ -28,7 +28,9 @@
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
+                <div class="min-h-screen">
+                    {{ $slot }}
+                </div>
             </main>
         </div>
     </body>
