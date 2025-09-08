@@ -11,8 +11,13 @@ class MainController extends Controller
         return view("top");
     }
 
-    public function slider()
+    public function createPin()
     {
-        return view("slider");
+        return view("pin");
+    }
+
+    public function createMap()
+    {
+        return view("map");
     }
 }

@@ -1,8 +1,4 @@
 <x-layout>
-    <x-slot name="header">
-        <x-header /> 
-    </x-slot>
-
     <div class="w-full min-h-screen relative pt-10">
         <div class="mb-10">
             <h1 class="text-center text-5xl text-white font-mono">MAP Maker</h1>
