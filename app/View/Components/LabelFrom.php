@@ -1,20 +1,22 @@
 <?php
 
-namespace App\View\Components\button;
+namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class MainButton extends Component
+class LabelForm extends Component
 {
-    public string $text;
+    public string $title;
+    public string $name;
     /**
      * Create a new component instance.
      */
-    public function __construct(string $text)
+    public function __construct(string $title = "", string $name)
     {
-        $this->text = $text;
+        $this->title = $title;
+        $this->name = $name;
     }
 
     /**
@@ -22,6 +24,6 @@ class MainButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.button.main-button');
+        return view('components.label-form');
     }
 }

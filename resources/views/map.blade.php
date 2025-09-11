@@ -1,30 +1,44 @@
 <x-layout>
     <article class="container mx-auto py-12">
-        <div class="w-full flex flex-col md:flex-row gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             
-            {{-- map_box --}}
-            <article class="md:basis-2/3 min-w-0">
-                <div id="map" class="h-80 md:h-[500px] w-full rounded-md shadow-md"></div>
-            </article>
+            {{-- ピン一覧 --}}
+            <aside class="relative bg-white rounded-md shadow p-4 flex flex-col h-full">
+                <h2 class="text-lg font-bold mb-4">登録済みピン</h2>
+                
+                <ul class="space-y-2 overflow-scroll flex-1 pr-2" id="pin-list">
+                    <li class="cursor-pointer px-3 py-2 bg-blue-50 rounded hover:bg-blue-100">
+                        東京駅
+                    </li>
+                </ul>
+            
+                <a 
+                    href="{{ route('create.pin') }}" 
+                    class="text-sm self-end mt-2 "
+                >ピンを作成する</a>
+            </aside>
 
-            {{-- post_box --}}
-            <article class="md:basis-1/3 bg-white rounded-md shadow-md p-6">
-                <h2 class="text-xl font-bold mb-4">投稿フォーム</h2>
-                <form class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">タイトル</label>
-                        <input type="text" class="w-full border rounded-md px-3 py-2 focus:ring focus:ring-blue-200">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">説明</label>
-                        <textarea class="w-full border rounded-md px-3 py-2 focus:ring focus:ring-blue-200"></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">
-                        登録
-                    </button>
-                </form>
-            </article>
+            {{-- 地図エリア --}}
+            <section class="md:col-span-2">
+                <div id="map" class="h-[500px] w-full rounded-md shadow"></div>
+            </section>
+        </div>
+        <div class=" py-6 px-16 space-y-8">
+                
+        {{-- マップ全体の情報 --}}
+        <form class="space-y-6">
+            <x-label-form title="マップのタイトル" name="title">
+                <input type="text" name="title" class="w-full">
+            </x-label-form>
 
+            <div>
+                <label class="block text-sm font-medium text-gray-700">説明</label>
+                <textarea class="w-full border rounded-md px-3 py-2 focus:ring focus:ring-blue-200"></textarea>
+            </div>
+        </form>
+        
+        {{-- 登録ボタン --}}
+        <x-main-button text="マップを登録"/>
         </div>
     </article>
 </x-layout>
