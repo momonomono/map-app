@@ -19,9 +19,11 @@
                                            border-2 border-dashed border-gray-400 rounded-xl
                                            bg-gradient-to-br from-gray-100 to-gray-200
                                            hover:from-blue-50 hover:to-blue-100 hover:border-blue-400
-                                           shadow-sm hover:shadow-md cursor-pointer transition">
+                                           shadow-sm hover:shadow-md cursor-pointer transition
+                                           js-preview-label">
                                 
-                                <div class="flex flex-col items-center gap-2 text-gray-500 group-hover:text-blue-500">
+                                <img class="absolute w-full h-full hidden js-preview-image">
+                                <div class="flex flex-col items-center gap-2 text-gray-500 group-hover:text-blue-500 js-preview-box">
                                     <div class="w-12 h-12 flex items-center justify-center rounded-full 
                                                 bg-white border border-gray-300 shadow">
                                         <span class="text-3xl font-bold">+</span>
@@ -29,7 +31,7 @@
                                     <p class="text-sm font-medium">画像を追加</p>
                                 </div>
                     
-                                <input type="file" class="hidden" name="images[]" accept="image/*">
+                                <input type="file" class="hidden js-images-for-pin" name="images[]" accept="image/*" >
                             </label>
                         @endfor
                     </div>

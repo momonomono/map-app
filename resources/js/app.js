@@ -2,6 +2,7 @@ import './bootstrap';
 
 import Alpine from 'alpinejs';
 import './map.js';
+import './picture.js';
 
 window.Alpine = Alpine;
 
