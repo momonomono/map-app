@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 
 Route::get("/", [MainController::class, "top"])->name("top");
-Route::get("/create/pin", [MainController::class, "createPin"])->name("create.pin");
-Route::get("/create/map", [MainController::class, "createMap"])->name("create.map");
-
+Route::get("/post/pin", [MainController::class, "createPin"])->name("create.pin");
+Route::get("/post/map", [MainController::class, "createMap"])->name("create.map");
+Route::get("/list", [MainController::class, "list"])->name("list");
 
 
 // Route::get('/dashboard', function () {

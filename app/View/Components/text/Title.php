@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\text;
 
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -8,12 +8,13 @@ use Illuminate\View\Component;
 
 class Title extends Component
 {
+    public string $title;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(string $title)
     {
-        //
+        $this->title = $title;
     }
 
     /**

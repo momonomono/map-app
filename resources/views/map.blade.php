@@ -4,7 +4,7 @@
             
             {{-- ピン一覧 --}}
             <aside class="relative bg-white rounded-md shadow p-4 flex flex-col h-full">
-                <h2 class="text-lg font-bold mb-4">登録済みピン</h2>
+                <h1 class="text-lg font-bold mb-4">登録済みピン</h1>
                 
                 <ul class="space-y-2 overflow-scroll flex-1 pr-2" id="pin-list">
                     <li class="cursor-pointer px-3 py-2 bg-blue-50 rounded hover:bg-blue-100">

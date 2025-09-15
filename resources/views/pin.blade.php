@@ -36,14 +36,24 @@
                         @endfor
                     </div>
 
+                    {{-- タイトル投稿 --}}
                     <x-label-form title="タイトル" name="title">
                         <input type="text" name="title" class="w-full">
                     </x-label-form>
-                    
-                    <x-label-form title="詳細" name="detail">
-                        <textarea class="w-full"></textarea>
+
+                    {{-- MAP URL投稿 --}}
+                    <x-label-form title="MAP URL" name="map_url">
+                        <input type="text" name="map_url" class="w-full">
                     </x-label-form>
+                    
+                    {{-- 詳細投稿 --}}
+                    <x-label-form title="詳細" name="detail">
+                        <textarea class="w-full" name="detail"></textarea>
+                    </x-label-form>
+
+                    {{-- 登録ボタン --}}
                     <x-main-button text="ピンを登録" />
+
                 </form>
             </article>
 

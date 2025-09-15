@@ -1,11 +1,15 @@
 <header class="w-full bg-white h-20 relative">
     <div  class="container mx-auto h-full flex justify-between items-center">
         <div>
-            <h1 class="text-2xl font-bold">MAP Maker</h1>
+            <a href="{{ route('top') }}">
+                <h1 class="text-2xl font-bold">MAP Maker</h1>
+            </a>
         </div>
         <ul class="flex gap-4">
             @auth
-                <li>マイページ</li>
+                <li>
+                    <a href="{{ route('profile.edit') }}">マイページ</a>
+                </li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
