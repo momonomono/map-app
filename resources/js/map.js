@@ -1,15 +1,42 @@
-// 東京駅を中心にマップ表示
-const map = L.map('map').setView([35.6812, 139.7671], 13);
+let map_lat = 35.681236;
+let map_lng = 139.767125;
 
-if(map){
-  // OpenStreetMap タイルを表示
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-  }).addTo(map);
+let marker;
+let map;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const tokyoStation = { lat: map_lat, lng: map_lng };
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 15,
+    center: tokyoStation,
+  });
+  marker = new google.maps.Marker({
+    position: tokyoStation,
+    map: map,
+    title: "東京駅",
+  });
+});
+
+const pinList = document.querySelectorAll('.js-click-pin');
+if (pinList){
+  pinList.forEach((pin) => {
+    pin.addEventListener('click', () => {
+      const new_pin_lat = Number(pin.getAttribute('data-lat'));
+      const new_pin_lng = Number(pin.getAttribute('data-lng'));
   
-  // ピンを立てる
-  const marker = L.marker([35.6812, 139.7671]).addTo(map)
-    .bindPopup('東京駅')
-    .openPopup();
+      console.log(new_pin_lat, new_pin_lng);
+  
+      marker.setPosition({ lat: new_pin_lat, lng: new_pin_lng });
+      map.setCenter({ lat: new_pin_lat, lng: new_pin_lng});
+    });
+  });
 }
 
+const pinForm = document.querySelector('#js-pin-form');
+if (pinForm) {
+  pinForm.addEventListener('blur', async () => {
+    const url = pinForm.value;
+    
+    
+  });
+}
