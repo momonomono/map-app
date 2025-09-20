@@ -3,21 +3,24 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\MapController;
+use App\Http\Controllers\PinController;
 
 Route::get("/", [MainController::class, "top"])->name("top");
-Route::get("/post/pin", [MainController::class, "createPin"])->name("create.pin");
-Route::get("/post/map", [MainController::class, "createMap"])->name("create.map");
+
+Route::get("/post/map", [MapController::class, "createMap"])->name("create.map");
 Route::get("/list", [MainController::class, "list"])->name("list");
 
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get("/post/pin", [PinController::class, "createPin"])->name("create.pin");
+    Route::post("/post/pin", [PinController::class, "storePin"])->name("store.pin");
+
+    Route::get("/post/map", [MapController::class, "createMap"])->name("create.map");
 });
 
 

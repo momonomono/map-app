@@ -7,15 +7,15 @@
                 <h1 class="text-lg font-bold mb-4">登録済みピン</h1>
                 
                 <ul class="space-y-2 overflow-scroll flex-1 pr-2" id="pin-list">
-                    <li class="cursor-pointer px-3 py-2 bg-blue-50 rounded hover:bg-blue-100">
-                        東京駅
-                    </li>
+                    @foreach($pins as $pin)
+                        <li 
+                            data-lat="{{ $pin->latitude }}" data-lng="{{ $pin->longitude }}"
+                            class="cursor-pointer px-3 py-2 bg-blue-50 rounded hover:bg-blue-100 js-click-pin"
+                        >
+                            <h1>{{ $pin->title }}</h1>
+                        </li>
+                    @endforeach
                 </ul>
-            
-                <a 
-                    href="{{ route('create.pin') }}" 
-                    class="text-sm self-end mt-2 "
-                >ピンを作成する</a>
             </aside>
 
             {{-- 地図エリア --}}

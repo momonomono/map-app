@@ -1,4 +1,4 @@
-<div {{ $attributes->merge([ 'class' => 'block' ]) }}>
+<div {{ $attributes->merge([ 'class' => 'block grid gap-4 py-4' ]) }}>
     @if($title)
         <p>{{ $title }}</p>
     @endif

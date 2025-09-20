@@ -1,9 +1,23 @@
 <header class="w-full bg-white h-20 relative">
     <div  class="container mx-auto h-full flex justify-between items-center">
-        <div>
+        <div class="flex items-center gap-8">
             <a href="{{ route('top') }}">
                 <h1 class="text-2xl font-bold">MAP Maker</h1>
             </a>
+            @auth
+                <ul class="flex justify-center items-center gap-4">
+                    <li class="hover:underline transition-all duration-300">
+                        <a href="{{ route('create.map') }}">
+                            MAP
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('create.pin')}}">
+                            PIN
+                        </a>
+                    </li>
+                </ul>
+            @endauth
         </div>
         <ul class="flex gap-4">
             @auth
