@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('pins', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("user_id")->constrained()->comment('ユーザーID');
             $table->string("title")->comment('タイトル');
-            $table->string("latitude")->comment('緯度');
-            $table->string("longitude")->comment('経度');
-            $table->string("detail")->nullable()->comment('詳細');
+            $table->decimal("latitude", 9, 6)->comment('緯度');
+            $table->decimal("longitude", 9, 6)->comment('経度');
+            $table->text("detail")->comment('詳細');
             $table->timestamps();
         });
     }
