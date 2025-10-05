@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("user_id")->constrained()->comment('ユーザーID');
             $table->string("title")->comment('タイトル');
+            $table->string("map_url")->comment('マップURL');
             $table->decimal("latitude", 9, 6)->comment('緯度');
             $table->decimal("longitude", 9, 6)->comment('経度');
             $table->text("detail")->comment('詳細');

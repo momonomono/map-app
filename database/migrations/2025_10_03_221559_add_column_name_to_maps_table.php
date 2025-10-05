@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('image_pin', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('pin_id')->constrained()->casecadeOnDelete();
-            $table->foreignId('image_id')->constrained()->casecadeOnDelete();
-            $table->timestamps();
+        Schema::table('maps', function (Blueprint $table) {
+            $table->integer('like_count')->default(0)->comment('いいね数');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('image_pin');
+        Schema::table('maps', function (Blueprint $table) {
+            $table->dropColumn('maps');
+        });
     }
 };
