@@ -1,42 +1,39 @@
-let map_lat = 35.681236;
-let map_lng = 139.767125;
-
-let marker;
-let map;
-
-document.addEventListener("DOMContentLoaded", () => {
-  const tokyoStation = { lat: map_lat, lng: map_lng };
-  map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 15,
-    center: tokyoStation,
+// マップの初期値の設定
+export function initMap(center) {
+  const googleMap = {};
+  googleMap.map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 15,
+      center: center,
   });
-  marker = new google.maps.Marker({
-    position: tokyoStation,
-    map: map,
-    title: "東京駅",
-  });
-});
+  googleMap.marker = new google.maps.Marker({ map: googleMap.map });
+  googleMap.markers = [];
 
-const pinList = document.querySelectorAll('.js-click-pin');
-if (pinList){
-  pinList.forEach((pin) => {
-    pin.addEventListener('click', () => {
-      const new_pin_lat = Number(pin.getAttribute('data-lat'));
-      const new_pin_lng = Number(pin.getAttribute('data-lng'));
-  
-      console.log(new_pin_lat, new_pin_lng);
-  
-      marker.setPosition({ lat: new_pin_lat, lng: new_pin_lng });
-      map.setCenter({ lat: new_pin_lat, lng: new_pin_lng});
-    });
-  });
+  return googleMap;
 }
 
-const pinForm = document.querySelector('#js-pin-form');
-if (pinForm) {
-  pinForm.addEventListener('blur', async () => {
-    const url = pinForm.value;
-    
-    
+// マーカーを追加する
+export function addMarker(coorde, googleMap, pinId) {
+  const marker = new google.maps.Marker({
+    position: coorde,
+    map: googleMap.map,
+  });
+  googleMap.markers[pinId] = marker;
+}
+
+// マップ作成の際、クリックしたピンをすべて表示させる
+export function fitAllMarkers(googleMap) {
+  const markers = Object.values(googleMap.markers);
+  if (markers.length === 0) return; 
+
+  const bounds = new google.maps.LatLngBounds();
+  markers.forEach(marker => bounds.extend(marker.getPosition()));
+
+  googleMap.map.fitBounds(bounds); 
+
+  // ズームの最大を12とする
+  const listener = google.maps.event.addListenerOnce(googleMap.map, "bounds_changed", () => {
+    if (googleMap.map.getZoom() > 12) {
+      googleMap.map.setZoom(12);
+    }
   });
 }

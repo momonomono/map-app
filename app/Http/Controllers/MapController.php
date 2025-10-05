@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Map;
 use App\Models\Pin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MapController extends Controller
 {
+    protected $user_id;
+    protected $map;
+
+    public function __construct()
+    {
+        $this->user_id = Auth::id();
+        $this->map = new Map();
+    }
+
     /**
      * Map投稿画面を表示
      * 
@@ -15,9 +26,72 @@ class MapController extends Controller
      */
     public function createMap()
     {
-        $pin = new Pin();
-        $pins = $pin->getPins();
-        
+        $pins = (new Pin())->getPinsById($this->user_id);   
         return view("map", compact('pins'));
+    }
+
+
+    /**
+     * Map投稿処理
+     * 
+     * @param Request $request
+     * @return redirect
+     */
+    public function storeMap(Request $request)
+    {
+        $validatedMap = $request->validate([
+            "pins" => "required|array|min:1",
+            'title' => "required|string|max:255",
+            "detail" => "nullable|string|max:255",
+        ]);
+
+        $this->map->storeMap($this->user_id, $validatedMap);
+
+        return redirect()->route('top');
+    }
+
+    /**
+     * 投稿一覧画面
+     * 
+     * @param 
+     * @return View
+     */
+    public function mypost()
+    {
+        $maps = Map::where('user_id', $this->user_id)->get();
+        $this->map->getImageTake5($maps);
+
+        return view('mypost', compact('maps'));
+    }
+
+    /**
+     * Map編集画面
+     * 
+     * 
+     */
+    public function editMap()
+    {
+
+    }
+
+
+    /**
+     * マップの削除
+     * 
+     * @param Request $request
+     * @return View
+     */
+    public function deleteMap(Request $request)
+    {
+        $id = $request->input('id');
+        $mapForDelete = Map::where("id", $id)->first();
+        $map_user_id =  $mapForDelete->user_id;
+        
+        if ($this->user_id == $map_user_id) {
+            $this->map->deleteMap($id);
+            return redirect()->route('top');
+        }
+
+        return back();
     }
 }
