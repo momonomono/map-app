@@ -10,12 +10,10 @@ class Pin extends Model
     protected $fillable = [
         'user_id',
         'title',
+        'map_url',
         'latitude',
         'longitude',
         'detail',
-        'image1_path',
-        'image2_path',
-        'image3_path',
     ];
     
     public function maps()
@@ -26,14 +24,14 @@ class Pin extends Model
 
     public function images()
     {
-        return $this->belongsToMany(Image::class, 'image_pin')
-                    ->withTimestamps();
+        return $this->hasMany(Image::class);
     }
 
-    public function getPins()
+    public function getPinsById($id)
     {
-        return self::with('maps')->get();
+        return self::where('user_id', $id)->get();
     }
+
 
     /**
      * Pinを保存
@@ -42,16 +40,72 @@ class Pin extends Model
      * @param array $coords
      * @return Pin
      */
-    public function storePin($data, $coords)
+    public function storePin($data, $coord)
     {
-        $pin = Pin::create([
+        $pin = self::create([
             'user_id' => Auth::id(),
             'title' => $data['title'],
-            'latitude' => $coords['lat'],
-            'longitude' => $coords['lng'],
+            'map_url' => $data['map_url'],
+            'latitude' => $coord['lat'],
+            'longitude' => $coord['lng'],
             'detail' => $data['detail'] ?? '',
         ]);
-
         return $pin;
+    }
+
+
+    /**
+     * 同じピンがあるかどうか調べる
+     * 
+     * @param array $coords
+     * @return Pin
+     */
+    public function searchPin($coords, $user_id)
+    {
+        return self::where('latitude', round($coords['lat'], 6))
+                ->where('longitude', round($coords['lng'], 6))
+                ->where('user_id', $user_id)
+                ->get();
+    }
+
+    
+
+
+    /**
+     * 編集するピンの出力
+     * 
+     * @param integer $user_id, $id
+     * @return Pin
+     */
+    public function checkEditPin($user_id, $id)
+    {
+        return self::with('images')
+                    ->where("id", $id)
+                    ->where("user_id", $user_id)
+                    ->first();
+    }
+
+
+    /**
+     * ピンの削除
+     * 
+     * @param integer $id
+     * @return 
+     */
+    public function deletePin($id)
+    {
+        self::where('id', $id)->delete();
+    }
+
+    public function updatePin($id, $data, $coord)
+    {
+        return self::findOrFail($id)
+                ->update([
+                    "title" => $data['title'],
+                    "detail" => $data['detail'],
+                    "map_url" => $data['map_url'],
+                    "latitude" => $coord['lat'],
+                    "longitude" => $coord['lng'],
+                ]);
     }
 }

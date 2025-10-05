@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\GoogleMapHelper;
+use App\Http\Requests\PinEditRequest;
 use App\Http\Requests\PinFormRequest;
 use App\Models\Pin;
 use App\Models\Image;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
 
 class PinController extends Controller
 {
@@ -36,41 +34,134 @@ class PinController extends Controller
         // バリデーション済みデータを取得
         $data = $request->validated();
 
-        // GoogleマップのURLを展開して緯度経度を抽出
-        $response = Http::withOptions(['allow_redirects' => false])->get($data['map_url']);
-        
-        // MAP URLからリダイアル先のURLを取得
-        $expanded = GoogleMapHelper::expandGoogleMapsUrl($request->map_url);
-        
-        // リダイアル先のURLが取得できた場合
-        if ($expanded) {
-            // 正規表現で緯度経度を抽出
-            $coords = GoogleMapHelper::extractLatLngFromUrl($expanded);
-
-            // 抽出できた場合
-            if ($coords) {
-                // Pinを保存
-                $pin = new Pin();
-                $storedPin = $pin->storePin($data, $coords);
-
-                if ($request->hasFile('images')) {
-                    foreach (array_slice($request->file('images'), 0, 3 )as $imageFile) {
-
-                        // 画像をストレージとDBに保存
-                        $image = new Image();
-                        $storedImage = $image->storeImage($imageFile);
-                        
-                        // 中間テーブルに保存
-                        $storedPin->images()->attach($storedImage->id);
-                    }
-                } 
-            } else {
-                return back()->withErrors(['map_url' => '無効なGoogleマップのURLです。']);
-            }
-        } else {
-            return back()->withErrors(['map_url' => 'Googleマップの短縮URLを展開できませんでした。']);
+        // 共有リンクから座標を引っ張ってくる
+        $googleMapHelper = new GoogleMapHelper();
+        $coord = $googleMapHelper->getCoordinatesFromUrl($data['map_url']);
+        if (!$coord) {
+            return back()
+                ->withErrors(['map_url' => '無効なGoogleマップのURLです。'])
+                ->withInput();
         }
 
-        return redirect()->route("top");
+        $user_id = Auth::id();
+        $pin = new Pin();
+        $searchedPin = $pin->searchPin($coord, $user_id);
+        if ($searchedPin->count() > 0 ) {
+            return back()
+                    ->withErrors(['map_url' => '同じピンがすでに存在しています。'])
+                    ->withInput();
+        }
+
+        $storedPin = $pin->storePin($data, $coord);         
+        if ($request->hasFile('images')) { 
+            foreach (array_slice($request->file('images'), 0, 3 )as $imageFile) {  
+                // 画像をストレージとDBに保存
+                $image = new Image();
+                $image->storeImage($imageFile, $storedPin->id);
+            }
+        } 
+
+        return redirect()->route("create.map");
+    }
+
+
+    /**
+     *  共有リンク入力後、javascriptで座標を返す
+     * 
+     * @param Request $request
+     * @return 
+     */
+    public function redialMapUrl(Request $request)
+    {
+        $url = $request->input('url');
+
+        $googleMapHelper = new GoogleMapHelper();
+        $coords = $googleMapHelper->getCoordinatesFromUrl($url);
+
+        return response()->json([
+            $coords
+        ]);
+    }
+
+
+
+    /**
+     * ピンの削除機能
+     * 
+     * @param Request
+     * @return back
+     */
+    public function deletePin(Request $request)
+    {
+        $user_id = Auth::id();
+        $pin_id = $request->input('pin_id');
+        $pin = Pin::where('id', $pin_id)->first();
+        $pin_user_id = $pin->user_id;
+        
+        if ($user_id !== $pin_user_id) {
+            return redirect()->route('create.pin');
+        }
+
+        (new Pin())->deletePin($pin_id);
+        
+        return back();
+    }
+
+
+    /**
+     * ピンの編集画面
+     * 
+     * @param  integer $id
+     * @return Illuminate\View\View
+     */
+    public function editPin($id)
+    {
+        $user_id = Auth::id();
+        $pin = ( new Pin() )->checkEditPin($user_id, $id);
+        if (!$pin) {
+            return redirect()->route('create.pin');
+        }
+        return view("pin-edit", compact('pin'));
+    }
+
+
+    /**
+     * ピン編集
+     * 
+     * @param PinEditRequest $request Integer $id
+     * @return view
+     */ 
+    public function updatePin(PinEditRequest $request, $id)
+    {   
+        $data = $request->validated();
+        $pin = Pin::where("id", $id)->first();
+
+        $map_url = $request->input("map_url");        
+        $googleMapHelper = new GoogleMapHelper();
+        $coord = $googleMapHelper->getCoordinatesFromUrl($map_url);
+        if (!$coord) {
+            return back()
+                    ->withErrors(['map_url' => '無効なGoogleマップのURLです。'])
+                    ->withInput();
+        }
+
+        $pin = new Pin();
+        $searchedPin = $pin->searchPin($coord, $pin->user_id);
+        if ($searchedPin->count() > 0) {
+            return back()
+                ->withErrors(['map_url' => '同じピンがすでに存在しています。'])
+                ->withInput();
+        }
+
+        $updatedPin = $pin->updatePin($id, $data, $coord);
+        if ($request->hasFile('images')) { 
+            foreach (array_slice($request->file('images'), 0, 3 )as $imageFile) {  
+                // 画像をストレージとDBに保存
+                $image = new Image();
+                $image->updateImage($id, $imageFile);
+            }
+        } 
+        
+        return redirect()->route("create.map");
     }
 }
