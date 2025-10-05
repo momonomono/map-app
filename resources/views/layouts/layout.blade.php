@@ -17,14 +17,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
-        <div>
+        <div class="bg-gray-100 min-h-screen">
             
             <!-- Page Heading -->
             <x-header />
 
             <!-- Page Content -->
-            <main>
-                <div class="min-h-screen">
+            <main class="">
+                <div>
                     {{ $slot }}
                 </div>
             </main>
