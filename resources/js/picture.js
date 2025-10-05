@@ -1,5 +1,6 @@
 const imageForPin = document.querySelectorAll('.js-images-for-pin');
 
+// 画像フォームが変更されたときにプレビューを出す
 if (imageForPin.length > 0) {
     imageForPin.forEach(input => {
         input.addEventListener('change', event => {
@@ -8,13 +9,13 @@ if (imageForPin.length > 0) {
 
             const reader = new FileReader();
             reader.onload = (e) => {
-                // ← input の親 label を探す
+                // input の親 label を探す
                 const label = event.target.closest('.js-preview-label');
                 if (!label) return;
 
                 const preview = label.querySelector('.js-preview-image');
                 const imgBox = label.querySelector('.js-preview-box');
-
+                
                 preview.src = e.target.result;
                 preview.classList.remove('hidden');
                 imgBox.classList.add('hidden');
@@ -23,3 +24,4 @@ if (imageForPin.length > 0) {
         });
     });
 }
+
