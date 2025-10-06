@@ -1,0 +1,18 @@
+{
+    "Profile": "プロフィール",
+    "Update your account's profile information and email address.": "アカウントのプロフィール情報とメールアドレスを更新してください。",
+    "Update Password": "パスワードを更新",
+    "Ensure your account is using a long, random password to stay secure.": "安全のため、長くてランダムなパスワードを設定してください。",
+    "Current Password": "現在のパスワード",
+    "New Password": "新しいパスワード",
+    "Confirm Password": "パスワード確認",
+    "Save": "保存",
+    "Saved.": "保存しました。",
+    "Delete Account": "アカウント削除",
+    "Permanently delete your account.": "アカウントを完全に削除します。",
+    "Delete Detail": "アカウントを削除すると、そのアカウントに関連するすべてのリソースとデータは完全に削除されます。アカウントを完全に削除することを確認するため、パスワードを入力してください。",
+    "Cancel": "キャンセル",
+    "Name": "名前",
+    "Email": "メールアドレス",
+    "Profile Information": "プロフィール情報"
+}

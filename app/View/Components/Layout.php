@@ -14,4 +14,8 @@ class Layout extends Component
     {
         return view('layouts.layout');
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> develop
