@@ -59,21 +59,10 @@ class MapController extends Controller
     public function mypost()
     {
         $maps = Map::where('user_id', $this->user_id)->get();
-        $this->map->getImageTake5($maps);
+        $this->map->getImageTake($maps, 5);
 
         return view('mypost', compact('maps'));
     }
-
-    /**
-     * Map編集画面
-     * 
-     * 
-     */
-    public function editMap()
-    {
-
-    }
-
 
     /**
      * マップの削除

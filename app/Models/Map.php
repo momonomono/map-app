@@ -46,16 +46,16 @@ class Map extends Model
      * マップのカードの表示する画像をランダムで５枚表示する
      * ピンに紐づけている画像を抽出
      * 
-     * @param Map $maps
+     * @param Map $maps, Integer $num 
      * @return Map $maps
      */
-    public function getImageTake5($maps)
+    public function getImageTake($maps, $num)
     {
         foreach($maps as $map){
             $allImage = $map->pins->flatMap( function($pin){
                 return $pin->images;
             });
-            $map->randomImage = $allImage->shuffle()->take(5);
+            $map->randomImage = $allImage->shuffle()->take($num);
         }
 
         return $maps;

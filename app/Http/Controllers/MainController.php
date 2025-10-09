@@ -17,7 +17,8 @@ class MainController extends Controller
     public function top()
     {
         $maps = Map::with('pins')->paginate(6);
-        (new Map())->getImageTake5($maps);
+        (new Map())->getImageTake($maps, 5);
+        
         return view("top",compact('maps'));
     }
 
@@ -29,7 +30,7 @@ class MainController extends Controller
      */
     public function showMap($id)
     {
-
+        // マップのユーザーを取得
         $map = Map::findOrFail($id);
         $user_id = Auth::id();
         $map_user_id = $map->user_id;
@@ -74,7 +75,7 @@ class MainController extends Controller
                     ->paginate(30);
 
         // ピンに登録した画像を５枚ランダムで取得
-        (new Map())->getImageTake5($maps);
+        (new Map())->getImageTake($maps, 5);
 
         return view("list", compact('maps', 'keyword'));
     }
