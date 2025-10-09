@@ -21,6 +21,6 @@ class SliderButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.app.button.slider-button');
+        return view('components.button.slider-button');
     }
 }
