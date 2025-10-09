@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\View\Components\Button\SliderButton;
+use App\View\Components\button\SliderButton;
 use App\View\Components\button\MainButton;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
