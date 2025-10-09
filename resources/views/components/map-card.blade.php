@@ -3,7 +3,7 @@
     <div class="relative w-full h-full">
         <div class="flex w-full h-full overflow-hidden snap-x snap-mandatory hover:shadow-xl js-image-container">
             @foreach($map->randomImage as $image )
-                <img src="{{ "storage/" . $image->image_path }}"
+                <img src="{{ asset('storage/' . $image->image_path) }}"
                      class="w-full h-full object-cover flex-shrink-0 snap-center js-map-card-image">
             @endforeach
         </div>
