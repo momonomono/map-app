@@ -16,10 +16,7 @@ Alpine.start();
 import { initMap, addMarker, fitAllMarkers } from './map.js';
 import { changeGoogleMap, addHiddenInputBox } from './pin.js';
 
-// const map =
-// if () {
 
-// }
 window.initMap = () => initMap({ lat: 35.681236, lng: 139.767125 });
 
 document.addEventListener("DOMContentLoaded", () => {
