@@ -30,7 +30,7 @@
             </main>
         </div>
 
-        <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_api_key') }}"
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_api_key') }}&callback=initMap"
         async defer></script>
     </body>
 </html>
