@@ -13,6 +13,8 @@ class Image extends Model
         'image_path',
     ];
 
+    protected $appends = ['url'];
+
     public function pins()
     {
         return $this->belongsToMany(Pin::class, 'image_pin');
@@ -31,19 +33,19 @@ class Image extends Model
         $path = $imageFile->store('images', $disk);
 
         // 画像情報をDBに保存
-        $image = Image::create([
+        return Image::create([
             'pin_id' => $id,
             'image_path' => $path
         ]);
-
-        return $image;
     }
 
-    public function getUrlAttributes($image)
+    public function getUrlAttribute()
     {
-        return isset($image)
-                ? Storage::url($this->image_path)
-                : "";
+        $disk = app()->environment('production') ? 's3' : 'public';
+
+        return $this->image_path
+            ? Storage::disk($disk)->url($this->image_path)
+            : '';
     }
 
     public function getImagePath($id)
