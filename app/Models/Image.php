@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class Image extends Model
 {
@@ -36,6 +37,13 @@ class Image extends Model
         ]);
 
         return $image;
+    }
+
+    public function getUrlAttributes($image)
+    {
+        return isset($image)
+                ? Storage::url($this->image_path)
+                : "";
     }
 
     public function getImagePath($id)
