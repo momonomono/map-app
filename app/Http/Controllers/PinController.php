@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Auth;
 
 class PinController extends Controller
 {
+    protected $pin;
+
+    public function __construct(Pin $pin)
+    {
+        $this->pin = $pin;
+    }
+
     /**
      * Pin投稿画面を表示
      * 
@@ -44,15 +51,14 @@ class PinController extends Controller
         }
 
         $user_id = Auth::id();
-        $pin = new Pin();
-        $searchedPin = $pin->searchPin($coord, $user_id);
+        $searchedPin = $this->pin->searchPin($coord, $user_id);
         if ($searchedPin->count() > 0 ) {
             return back()
                     ->withErrors(['map_url' => '同じピンがすでに存在しています。'])
                     ->withInput();
         }
 
-        $storedPin = $pin->storePin($data, $coord);         
+        $storedPin = $this->pin->storePin($data, $coord);         
         if ($request->hasFile('images')) { 
             foreach (array_slice($request->file('images'), 0, 3 )as $imageFile) {  
                 // 画像をストレージとDBに保存
@@ -133,27 +139,24 @@ class PinController extends Controller
      */ 
     public function updatePin(PinEditRequest $request, $id)
     {   
+        // バリデーション後のデータ
         $data = $request->validated();
-        $pin = Pin::where("id", $id)->first();
+        $editPin = Pin::where("id", $id)->first();
+        if (!$editPin) {
+            return back()
+                    ->withError(['images' => 'ピンが存在しません']);
+        }
 
         $map_url = $request->input("map_url");        
         $googleMapHelper = new GoogleMapHelper();
-        $coord = $googleMapHelper->getCoordinatesFromUrl($map_url);
+        $coord = $googleMapHelper->getCoordinatesFromUrl($data['map_url']);
         if (!$coord) {
             return back()
                     ->withErrors(['map_url' => '無効なGoogleマップのURLです。'])
                     ->withInput();
         }
 
-        $pin = new Pin();
-        $searchedPin = $pin->searchPin($coord, $pin->user_id);
-        if ($searchedPin->count() > 0) {
-            return back()
-                ->withErrors(['map_url' => '同じピンがすでに存在しています。'])
-                ->withInput();
-        }
-
-        $updatedPin = $pin->updatePin($id, $data, $coord);
+        $editPin->updatePin($id, $data, $coord);
         if ($request->hasFile('images')) { 
             foreach (array_slice($request->file('images'), 0, 3 )as $imageFile) {  
                 // 画像をストレージとDBに保存

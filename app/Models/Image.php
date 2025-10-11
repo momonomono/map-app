@@ -39,6 +39,7 @@ class Image extends Model
         ]);
     }
 
+    // アクセサ
     public function getUrlAttribute()
     {
         $disk = app()->environment('production') ? 's3' : 'public';
@@ -59,7 +60,6 @@ class Image extends Model
             $disk = app()->environment('production') ? 's3' : 'public';
             $path = $image->store('images', $disk);
 
-            $id = Auth::id();
             // 画像情報をDBに保存
             $image = self::update([
                 'pin_id' => $pin_id,

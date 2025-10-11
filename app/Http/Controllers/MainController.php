@@ -17,7 +17,9 @@ class MainController extends Controller
     public function top()
     {
         // 表示するカードのために、画像を取得
-        $maps = Map::with('pins')->paginate(6);
+        $maps = Map::with('pins')
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(6);
         (new Map())->getImageTake($maps, 5);
         
         return view("top",compact('maps'));
@@ -53,7 +55,9 @@ class MainController extends Controller
     public function getDetail(Request $request)
     {
         $id = $request->input('id');
-        $maps = Map::with('pins')->where("id", $id)->first();
+        $maps = Map::with('pins')
+                    ->where("id", $id)
+                    ->first();
         $pins = $maps->pins;
         return response()->json($pins);
     }
