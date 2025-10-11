@@ -1,11 +1,12 @@
 <x-layout>
     <article class="container mx-auto py-12">
+        <x-text.title title="MAP 編集" />
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
             {{-- ピン一覧 --}}
             <aside class="relative bg-white rounded-md shadow p-4 flex flex-col h-full">
-                <h1 class="text-lg font-bold mb-4">登録済みピン</h1>
-                
+                <h2 class="text-lg font-bold mb-4">登録済みピン</h2>
+
                 <ul class="space-y-2 overflow-scroll flex-1 pr-2" id="pin-list">
                     @if ($pins->count() === 0)
                         <div class="flex flex-col items-center justify-center p-10">
@@ -66,9 +67,7 @@
             @csrf
             <div id="js-hidden-inputs">
 
-            </div>
-
-            
+            </div> 
 
             <x-label-form title="マップのタイトル" name="title">
                 <input type="text" name="title" class="w-full">

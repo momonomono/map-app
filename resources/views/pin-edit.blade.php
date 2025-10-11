@@ -1,6 +1,6 @@
 <x-layout>
     <article class="container mx-auto py-12">
-        <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">ピンの編集</h1>
+        <x-text.title title="ピン 編集"/>
         
         {{-- プレビューエリア --}}
         <div class="w-full gap-4">
@@ -31,8 +31,8 @@
                                 {{-- プレビュー画像 --}}
                                 <img 
                                     class="absolute inset-0 w-full h-full object-cover rounded-lg js-preview-image"
-                                    @isset ($pin->images[$i]->image_path)
-                                        src="{{ asset('storage/' . $pin->images[$i]->image_path) }}"
+                                    @isset ( $pin->images[$i]->image_path )
+                                        src="{{ $pin->images[$i]->url }}"
                                     @endisset
                                 >
                                 

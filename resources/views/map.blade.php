@@ -1,7 +1,8 @@
 <x-layout>
     <article class="container mx-auto py-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
+        <x-text.title title="マップ 登録"/>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">    
             {{-- ピン一覧 --}}
             <aside class="relative bg-white rounded-md shadow p-4 flex flex-col h-full">
                 <h1 class="text-lg font-bold mb-4">登録済みピン</h1>
