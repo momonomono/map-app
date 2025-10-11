@@ -10,7 +10,7 @@ if (window.location.pathname == "/") {
 
     // クリックイベント
     prevButtons.forEach(element => {
-        element.addEventListener("click", (e) => moveSlider(e, - cardWidth));
+        element.addEventListener("click", (e) => moveSlider(e, -cardWidth));
     });
     
     nextButtons.forEach(element => {
@@ -38,8 +38,8 @@ if (window.location.pathname == "/") {
         // スライドの限界値
         if (currentX > 0) {
             currentX = 0;
-        } else if(currentX < - maxMovePrev) {
-            currentX = - maxMovePrev;
+        } else if(currentX < -maxMovePrev) {
+            currentX = -maxMovePrev;
         }
         
         // 移動のアニメーション
