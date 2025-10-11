@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MapFormRequest;
 use App\Models\Map;
 use App\Models\Pin;
 use Illuminate\Http\Request;
@@ -34,17 +35,12 @@ class MapController extends Controller
     /**
      * Map投稿処理
      * 
-     * @param Request $request
+     * @param MapFormRequest $request
      * @return redirect
      */
-    public function storeMap(Request $request)
+    public function storeMap(MapFormRequest $request)
     {
-        $validatedMap = $request->validate([
-            "pins" => "required|array|min:1",
-            'title' => "required|string|max:255",
-            "detail" => "nullable|string|max:255",
-        ]);
-
+        $validatedMap = $request->validated();
         $this->map->storeMap($this->user_id, $validatedMap);
 
         return redirect()->route('top');
