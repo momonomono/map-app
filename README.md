@@ -8,6 +8,10 @@
 ## 🎯ターゲット
     近所の店舗などを紹介したい方
     旅行先の目的地を検索したい方
+## 操作方法
+    1. アカウントを作成
+    2. ピン登録画面でgooglemapの共通リンクを利用してピンを登録
+    3. 登録したピンを一本以上選択して、選択したピンが刺さったマップを投稿
 ## 🐀できること
 - 登録なし
     * 一覧画面でみんなが投稿したMAPを見ることができる
@@ -32,7 +36,7 @@
         S3：ファイルストレージ。本番で利用（ローカルは任意）。
     Laravel Breeze：認証機能。
     FormRequest：バリデーションに使用。
-    configまたはenum：固定値の管理に使用。
-    その他
+    GoogleMapAPI(https://developers.google.com/maps/documentation/javascript/reference?hl=ja)
+## その他
     GitHub
     Laravel Cloud：Laravelを簡易デプロイできるツール
