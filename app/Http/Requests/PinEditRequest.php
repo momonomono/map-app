@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ValidGoogleMapUrl;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PinEditRequest extends FormRequest
@@ -24,7 +25,7 @@ class PinEditRequest extends FormRequest
         return [
             "images" => "nullable|array|min:1",
             "images.*" => "image|mimes:jpeg,png,jpg,gif,svg|max:2048",
-            "map_url" => "nullable|string|max:255",
+            "map_url" => ["nullable", "string", "max:255", new ValidGoogleMapUrl()],
             "title" => "required|string|max:255",
             "detail" => "nullable|string|max:255"
         ];

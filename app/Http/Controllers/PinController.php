@@ -44,12 +44,7 @@ class PinController extends Controller
         // 共有リンクから座標を引っ張ってくる
         $googleMapHelper = new GoogleMapHelper();
         $coord = $googleMapHelper->getCoordinatesFromUrl($data['map_url']);
-        if (!$coord) {
-            return back()
-                ->withErrors(['map_url' => '無効なGoogleマップのURLです。'])
-                ->withInput();
-        }
-
+        
         $user_id = Auth::id();
         $searchedPin = $this->pin->searchPin($coord, $user_id);
         if ($searchedPin->count() > 0 ) {
@@ -141,22 +136,20 @@ class PinController extends Controller
     {   
         // バリデーション後のデータ
         $data = $request->validated();
+
+        // ピンがあるか確認
         $editPin = Pin::where("id", $id)->first();
         if (!$editPin) {
             return back()
                     ->withError(['images' => 'ピンが存在しません']);
         }
-
-        $map_url = $request->input("map_url");        
+       
         $googleMapHelper = new GoogleMapHelper();
         $coord = $googleMapHelper->getCoordinatesFromUrl($data['map_url']);
-        if (!$coord) {
-            return back()
-                    ->withErrors(['map_url' => '無効なGoogleマップのURLです。'])
-                    ->withInput();
-        }
-
+        
+        // ピンを編集
         $editPin->updatePin($id, $data, $coord);
+        // アップロードされていた場合、ストレージに保存
         if ($request->hasFile('images')) { 
             foreach (array_slice($request->file('images'), 0, 3 )as $imageFile) {  
                 // 画像をストレージとDBに保存

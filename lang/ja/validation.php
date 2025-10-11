@@ -3,6 +3,7 @@
         "required" => ":attributeは必須です。",
         "string" => "文字を入力してください。",
         "max" => ":attributeは:max文字以内で入力してください。",
+        "valid_google_map_url" => "有効なgoogle mapの共通リンクではありません。",
         "custom" => [
             "images" => [
                 "required" => "画像は必須です。",
