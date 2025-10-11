@@ -80,7 +80,7 @@
 
             {{-- 登録ボタン --}}
             <div class="pt-4 text-right">
-                <x-main-button text="マップを登録" class="bg-green-500 hover:bg-green-400"/>
+                <x-main-button text="登録" class="bg-green-500 hover:bg-green-400"/>
             </div>
         </form>
         
