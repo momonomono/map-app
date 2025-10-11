@@ -13,7 +13,7 @@ class LabelForm extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(string $title = "", string $name)
+    public function __construct(string $name, string $title = "")
     {
         $this->title = $title;
         $this->name = $name;

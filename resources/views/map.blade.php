@@ -64,20 +64,19 @@
         {{-- マップ全体の情報 --}}
         <form method="POST">
             @csrf
-            <div id="js-hidden-inputs">
 
-            </div>
-
+            {{-- ピンズ --}}
+            <x-label-form id="js-hidden-inputs" name="pins">
+            </x-label-form>
             
-
-            <x-label-form title="マップのタイトル" name="title">
-                <input type="text" name="title" class="w-full">
+            {{-- MAPタイトル --}}
+            <x-label-form title="MAPタイトル" name="title">
+                <input type="text" name="title" class="w-full" value="{{ old('title') }}">
             </x-label-form>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-700">説明</label>
-                <textarea class="w-full border rounded-md px-3 py-2 focus:ring focus:ring-blue-200" name="detail"></textarea>
-            </div>
+            <x-label-form title="詳細" name="">
+                <textarea class="w-full border px-3 py-2" name="detail">{{ old('detail') }}</textarea>
+            </x-label-form>
 
             {{-- 登録ボタン --}}
             <div class="pt-4 text-right">

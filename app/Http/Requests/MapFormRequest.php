@@ -22,7 +22,7 @@ class MapFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "pins" => "required|array|min:1",
+            "pins" => "required|array",
             'title' => "required|string|max:255",
             "detail" => "nullable|string|max:255"
         ];

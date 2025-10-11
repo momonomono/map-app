@@ -1,9 +1,9 @@
 <div {{ $attributes->merge([ 'class' => 'block grid gap-4 py-4' ]) }}>
-    @if($title)
+    @isset($title)
         <p>{{ $title }}</p>
-    @endif
+    @endisset
     {{ $slot }}
     @error($name)
-        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+        <p class="text-red-500 text-sm mt-1 font-bold">{{ $message }}</p>
     @enderror
 </div>

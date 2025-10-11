@@ -13,10 +13,10 @@ class MapController extends Controller
     protected $user_id;
     protected $map;
 
-    public function __construct()
+    public function __construct(Map $map)
     {
         $this->user_id = Auth::id();
-        $this->map = new Map();
+        $this->map = $map;
     }
 
     /**
@@ -40,7 +40,7 @@ class MapController extends Controller
      */
     public function storeMap(MapFormRequest $request)
     {
-        $validatedMap = $request->validated();
+        $validatedMap = $request->validated(); 
         $this->map->storeMap($this->user_id, $validatedMap);
 
         return redirect()->route('top');
