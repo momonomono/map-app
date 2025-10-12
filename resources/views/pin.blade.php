@@ -50,7 +50,9 @@
 
                     {{-- MAP URL投稿 --}}
                     <x-label-form title="MAP URL" name="map_url">
-                        <input type="text" name="map_url" class="w-full" id="js-pin-form" value="{{ old('map_url') }}">
+                        <p class="text-sm font-thin">Googleマップを開き<br class="sm:hidden"/> 概要 > 共有 > 「リンクをコピー」したURLを貼り付けてください</p>
+                        <input type="text" 
+                            name="map_url" class="w-full" id="js-pin-form" value="{{ old('map_url') }}">
                     </x-label-form>
 
                     {{-- タイトル投稿 --}}

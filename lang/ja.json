@@ -14,5 +14,12 @@
     "Cancel": "キャンセル",
     "Name": "名前",
     "Email": "メールアドレス",
-    "Profile Information": "プロフィール情報"
+    "Profile Information": "プロフィール情報",
+    "Password": "パスワード",
+    "Already registered?": "すでに登録済みですか？",
+    "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.": "新しいパスワードを設定できるリセット用リンクをメールでお送りします。",
+    "Email Password Reset Link": "再設定用のリンクを送信",
+    "Forgot your password?": "パスワードをお忘れですか？",
+    "Log in": "ログイン",
+    "Register": "新規登録"
 }

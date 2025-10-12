@@ -4,6 +4,8 @@
         "string" => "文字を入力してください。",
         "max" => ":attributeは:max文字以内で入力してください。",
         "valid_google_map_url" => "有効なgoogle mapの共通リンクではありません。",
+        "current_password" => "パスワードが違います。",
+        "confirmed" => ":attribute の確認が一致していません。",
         "custom" => [
             "images" => [
                 "required" => "画像は必須です。",
@@ -21,6 +23,7 @@
         ],
         "attributes" => [
             "title" => "タイトル",
+            "password" => "パスワード",
             "map_url" => "MAP URL",
             "detail" => "詳細",
         ]
