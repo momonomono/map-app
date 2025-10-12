@@ -2,6 +2,11 @@
     <article class="container mx-auto py-12">
         <x-text.title title="マップ 登録"/>
 
+        <div class="text-center py-8 line-tight">
+            <p>別ページで登録したピンを選択することでマップにピンが刺さります。</p>
+            <p>複数選択することが可能です。ピンを解除したい場合はもう一度選択してくださいください。</p>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">    
             {{-- ピン一覧 --}}
             <aside class="relative bg-white rounded-md shadow p-4 flex flex-col h-full">

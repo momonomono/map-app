@@ -1,6 +1,6 @@
 <x-layout>
     <article class="container mx-auto py-12">
-        <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">ピンの登録</h1>
+        <x-text.title title="ピン 登録" />
         
         {{-- プレビューエリア --}}
         <div class="w-full gap-4">
