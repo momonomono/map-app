@@ -13,7 +13,6 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
         <!-- Scripts -->
-        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
@@ -30,8 +29,7 @@
             </main>
         </div>
 
-        <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_api_key') }}"
-        async defer
-        onload="initMap()"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_api_key') }}&callback=initMap" async defer></script>
+        </script>
     </body>
 </html>

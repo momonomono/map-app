@@ -1,5 +1,5 @@
 // マップの初期値の設定
-export function initMap(center) {
+export function createMap(center) {
   const googleMap = {};
   googleMap.map = new google.maps.Map(document.getElementById("map"), {
       zoom: 15,
