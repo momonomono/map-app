@@ -40,7 +40,7 @@ window.initMap = ()=> {
     }
 
     if (/^\/post\/\d+$/.test(window.location.pathname)) {
-        createMaoForDetail();
+        createMapForDetail();
     }          
 };
 
