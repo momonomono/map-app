@@ -68,7 +68,7 @@ function addMarkerToMap() {
 }
 
 // 詳細画面　マップ表示のための処理
-function createMaoForDetail() {
+function createMapForDetail() {
     const mapContainer = document.querySelector("#map");
     const map_id = mapContainer.getAttribute("data-id");
 
