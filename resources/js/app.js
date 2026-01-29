@@ -38,6 +38,10 @@ window.initMap = ()=> {
     if (/^\/edit\/pin\/\d+$/.test(window.location.pathname)) {
         createMapForEdit();
     }
+
+    if (/^\/post\/\d+$/.test(window.location.pathname)) {
+        createMaoForDetail();
+    }          
 };
 
 function addMarkerToMap() {
@@ -64,8 +68,7 @@ function addMarkerToMap() {
 }
 
 // 詳細画面　マップ表示のための処理
-if (/^\/post\/\d+$/.test(window.location.pathname)) {
-    
+function createMaoForDetail() {
     const mapContainer = document.querySelector("#map");
     const map_id = mapContainer.getAttribute("data-id");
 
@@ -138,7 +141,8 @@ if (/^\/post\/\d+$/.test(window.location.pathname)) {
         });
     })
     .catch(error => console.error("通信エラー:", error));
-}
+} 
+
 
 // ピン編集画面
 function createMapForEdit() {
